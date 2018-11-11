@@ -1,5 +1,5 @@
 from flask import Flask
-from pymongo import MongoClient
+from pymongo import MongoClient, ReturnDocument
 
 CHECKOUT_LIMIT = 3
 
@@ -25,31 +25,29 @@ def index():
 def get_users():
 	try:
 		users = db.users.find()
-		statement = 'User Information: <br>'
+		statement = ''
 		for user in users:
-			username = user['username']
-			obj_id = user['_id']
-			statement = statement + f'{obj_id}: {username}<br>'
+			statement = statement + f'{user}<br>'
 	except:
 		statement = 'error'
 	return statement
 
 # get a specific user by username
+@app.route("/users/get/")
 @app.route("/users/get/<username>")
 def get_user(username=None):
-	try:
-		user = db.users.find_one({'username': username})
-		name = user['firstname']
-		obj_id = user['_id']
-		books = user['books']
-		for book in books:
-			book_id = book
-		statement = f'{name}, {obj_id}, {book_id}'
-	except:
-		statement = "error"
+	if username:
+		try:
+			user = db.users.find_one({'username': username})
+			statement = f'{user}'
+		except:
+			statement = "error"
+	else:
+		statement = 'please provide a username'
 	return statement
 
 # create a user
+## TODO: Make username a unique field. Replace user_id with username as key from book to user
 @app.route("/users/post/<username>/<firstname>/<lastname>")
 def post_user(username=None, firstname=None, lastname=None):
 	if username and firstname and lastname:
@@ -65,6 +63,7 @@ def post_user(username=None, firstname=None, lastname=None):
 	return statement
 
 # delete a user
+# TODO: Unable to delete user while books are checked out
 @app.route("/users/delete/")
 @app.route("/users/delete/<username>")
 def delete_user(username=None):
@@ -86,15 +85,12 @@ def delete_user(username=None):
 def get_books():
 	try:
 		books = db.books.find()
-		books_output = 'books: <br>'
+		statement = ''
 		for book in books:
-			title = book['title']
-			year = book['year']
-			borrower = book['borrower']
-			books_output = books_output + (f'{title}, {year}, {borrower} <br>')
+			statement = statement + (f'{book}<br>')
 	except:
-		books_output = 'an unknown error occured'
-	return (''.join(books_output))
+		statement = 'an unknown error occured'
+	return statement
 
 # get a specific book
 @app.route("/books/get/")
@@ -102,10 +98,10 @@ def get_books():
 def get_book(title=None):
 	if title:
 		try:
-			book = db.books.find_one({'title':title})
-			year = book['year']
-			borrower = book['borrower']
-			statement = f'{title}, {year}, {borrower}'
+			books = db.books.find({'title':title})
+			statement = ''
+			for book in books:
+				statement = statement + f'{book}<br>'
 		except:
 			statement = 'an error occurred'
 	else:
@@ -129,12 +125,13 @@ def post_book(title=None, year=None, borrower=None):
 	return statement
 
 # delete a book
+# TODO: Programmatically manipulate a book based on UUID
 # include a check for an borrower
 @app.route("/books/delete/")
 @app.route("/books/delete/<title>")
 def delete_book(title=None):
 	if title:
-		book = db.books.find_one({"title": title})
+		book = db.books.find_one({"title": title}, {'borrower': 1})
 		borrower = book['borrower']
 		if not borrower:
 			try:
@@ -150,62 +147,63 @@ def delete_book(title=None):
 		statement = 'title missing'
 	return statement
 
-## Both of these functions should only be written once
 # checkout a book
 @app.route("/checkout/")
 @app.route("/checkout/<title>/<username>")
 def checkout(title = None, username = None):
-	# blank error statement
-	error = []
 	# check title and username are both provided; set to boolean
 	if title and username:
-		user = db.users.find_one({"username": username})
-		book = db.books.find_one({"title": title})
-		firstname = user['firstname']
-		user_id = user['_id']
-		year = book['year']
-		book_id = book['_id']
-		borrower = book['borrower']
-		statement = f'{year}, {borrower}, {firstname}'
-
-		db.books.update_one({"_id": book_id},
-		{"$set":{"borrower": user_id}})
-
-		db.users.update_one(
-			{"_id": user_id},
-			{
-				"$push": {
-					"books": book_id
+		try:
+			user = db.users.find_one({"username": username},{})
+			user_id = user['_id']
+			book = db.books.find_one_and_update({'$and': [
+										{ 'title' : title },
+										{ 'borrower': None}]},
+									{'$set' : 
+										{"borrower": user_id}},
+									return_document=ReturnDocument.AFTER	
+									)
+			book_id = book['_id']
+			user = db.users.update_one(
+				{"_id": user_id},
+				{
+					"$push": {
+						"books": book_id
+					}
 				}
-			}
-		)
+			)
+			statement = f'Book: {book} <br> {user}'
+		except:
+			statement = 'error'
+	else:
+		statement = 'please provide username and title'
 	return statement
-# return a book
 
-
-# @app.route("/checkout/book/")
-# @app.route("/checkout/book/<title>/<owner>/")
-# ## TODO: Refractor Owner to Borrower
-# def checkout_book(title=None, owner=None):
-# 	if title and owner:
-# 		try:
-# 			owner = db.user.find_one({"username": owner}) 
-# 			db.books.update_one(
-# 				{"title": title},
-# 				{
-# 					"$set":{
-# 						"owner": owner
-# 					}
-# 				}
-# 			)
-# 			statement = f'/get/book/{title} to view new owner'
-# 		except:
-# 			statement = "Error"
-# 	else:
-# 		statement = "no title provided"
-
-# 	return statement
-
+# checkin a book
+@app.route('/checkin/')
+@app.route('/checkin/<title>/<username>')
+def check_in(title=None, username=None):
+	if title and username:
+		try:
+			user = db.users.find_one({"username": username},{})
+			user_id = user['_id']
+			book = db.books.find_one_and_update({'$and': [
+								{ 'title' : title },
+								{ 'borrower': user_id}]},
+							{'$set' : 
+								{"borrower": None}},
+							return_document=ReturnDocument.AFTER)
+			book_id = book['_id']
+			user = db.users.update_one(
+				{"_id": user_id},
+				{"$pull": {"books": book_id}})
+			statement = f'Book: {book} <br> User: {user}'
+		except:
+			statement = 'error'
+	else:
+		statement = 'please provide title and borrower'
+	return statement
+	
 
 @app.route("/users/reset")
 def reset_users():
