@@ -151,25 +151,21 @@ def delete_book(title=None):
 @app.route("/checkout/")
 @app.route("/checkout/<title>/<username>")
 def checkout(title = None, username = None):
-	# check title and username are both provided; set to boolean
 	if title and username:
 		try:
-			user = db.users.find_one({"username": username},{})
-			user_id = user['_id']
-			book = db.books.find_one_and_update({'$and': [
+			book = db.books.find_one_and_update(
+									{'$and': [
 										{ 'title' : title },
 										{ 'borrower': None}]},
 									{'$set' : 
-										{"borrower": user_id}},
+										{"borrower": username}},
 									return_document=ReturnDocument.AFTER	
 									)
 			book_id = book['_id']
 			user = db.users.update_one(
-				{"_id": user_id},
-				{
-					"$push": {
-						"books": book_id
-					}
+				{"username": username},
+				{"$push": 
+					{"books": book_id}
 				}
 			)
 			statement = f'Book: {book} <br> {user}'
@@ -185,17 +181,15 @@ def checkout(title = None, username = None):
 def check_in(title=None, username=None):
 	if title and username:
 		try:
-			user = db.users.find_one({"username": username},{})
-			user_id = user['_id']
 			book = db.books.find_one_and_update({'$and': [
 								{ 'title' : title },
-								{ 'borrower': user_id}]},
+								{ 'borrower': username}]},
 							{'$set' : 
 								{"borrower": None}},
 							return_document=ReturnDocument.AFTER)
 			book_id = book['_id']
 			user = db.users.update_one(
-				{"_id": user_id},
+				{"username": username},
 				{"$pull": {"books": book_id}})
 			statement = f'Book: {book} <br> User: {user}'
 		except:
