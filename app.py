@@ -1,5 +1,6 @@
 from flask import Flask
 from pymongo import MongoClient, ReturnDocument
+from validators import User, AllUsers
 
 CHECKOUT_LIMIT = 3
 
@@ -9,7 +10,6 @@ client = MongoClient('localhost', 27017)
 app.debug = True
 
 db = client.mongodb_tutorial
-
 ## Home
 
 # default routing provies reference to all routes
@@ -23,13 +23,8 @@ def index():
 # Get all users
 @app.route("/users/")
 def get_users():
-	try:
-		users = db.users.find()
-		statement = ''
-		for user in users:
-			statement = statement + f'{user}<br>'
-	except:
-		statement = 'error'
+	users = AllUsers()
+	statement = users.get
 	return statement
 
 # get a specific user by username
@@ -37,11 +32,8 @@ def get_users():
 @app.route("/users/get/<username>")
 def get_user(username=None):
 	if username:
-		try:
-			user = db.users.find_one({'username': username})
-			statement = f'{user}'
-		except:
-			statement = "error"
+		user = User(username)
+		statement = user.get()
 	else:
 		statement = 'please provide a username'
 	return statement
@@ -50,16 +42,12 @@ def get_user(username=None):
 ## TODO: Make username a unique field. Replace user_id with username as key from book to user
 @app.route("/users/post/<username>/<firstname>/<lastname>")
 def post_user(username=None, firstname=None, lastname=None):
-	if username and firstname and lastname:
-		db.users.insert_one({
-			"username": username,
-			"firstname": firstname,
-			"lastname": lastname,
-			"books": []
-		})
-		statement = f'Data inserted successfully: {username}, {firstname}, {lastname}'
+	if username:
+		user = User(username)
+		statement = user.post(firstname, lastname)
 	else:
-		statement = 'Data insufficient. Please try again!'
+		statement = 'no username provided'
+
 	return statement
 
 # delete a user
@@ -68,13 +56,8 @@ def post_user(username=None, firstname=None, lastname=None):
 @app.route("/users/delete/<username>")
 def delete_user(username=None):
 	if username:
-		try:
-			db.users.remove({
-				"username": username,
-			})
-			statement = f'{username} removed'
-		except:
-			statement = 'error'
+		user = User(username)
+		statement = user.delete()
 	else:
 		statement = 'username missing'
 	return statement
