@@ -3,6 +3,7 @@ Handle the requests to the Mongo Database
 """
 from schema import Schema, Optional, Or
 from pymongo import MongoClient, ReturnDocument
+from bson import ObjectId
 
 CLIENT = MongoClient('localhost', 27017)
 DB = CLIENT.mongodb_tutorial
@@ -141,9 +142,9 @@ class Library:
             return 'please provide valid collection'
         try:
             items = collection.find()
-            statement = ''
+            statement = []
             for item in items:
-                statement = statement + (f'{item}<br>')
+                statement.append({'id': ObjectId(item['_id']), 'username': item['username'], 'firstname': item['firstname']})
         except:
             statement = 'an unknown error occured'
         return statement

@@ -2,13 +2,20 @@
 Contains all views for application
 """
 
-from flask import Flask
+from flask import Flask, jsonify
 from validators import User, Book, Library
 
 app = Flask(__name__)
 app.debug = True
 
 LIBRARY = Library()
+
+@app.route("/api/v1/<collection>/", methods=['GET'])
+def api_get_collection(collection=None):
+    """Get all items in a collection"""
+    statement = LIBRARY.get(collection)
+    # return statement
+    return jsonify({collection: statement})
 
 @app.route("/")
 def index():
