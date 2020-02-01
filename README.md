@@ -1,2 +1,2 @@
-# mongodb-tutorial
-Follow the mongodb tutorial to create an API
+# lending-library
+Demonstrate an API created with Flask and MongoDB to manage Library Materials
