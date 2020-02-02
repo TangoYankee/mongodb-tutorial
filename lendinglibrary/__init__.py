@@ -2,4 +2,4 @@
 from flask import Flask
 
 app = Flask(__name__)
-from lendinglibrary import views
+from lendinglibrary import urls
