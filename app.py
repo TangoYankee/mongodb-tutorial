@@ -24,6 +24,7 @@ def index():
         '1. /users/ - get all users <br>' \
         '2. /users/username/ - get particular user <br>' \
 
+# URIs should only be nouns. Discard 'GET' from uri!!!!!
 @app.route("/users/get/")
 @app.route("/users/get/<username>")
 def get_user(username=None):
