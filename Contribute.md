@@ -13,6 +13,8 @@ NoSQL Database: [Install for Ubuntu](https://docs.mongodb.com/manual/tutorial/in
 
 ### PyMongo
 The recommended way to work with MongoDB from Python: [PyMongo Documentation](https://docs.mongodb.com/ecosystem/drivers/pymongo/)
+https://flask-pymongo.readthedocs.io/en/latest/
+
 
 ## Virtual Environment
 Install in bash  
@@ -21,8 +23,17 @@ Install in bash
 Create environment  
 ```python3 -m venv lending-library-env```  
 Enter environment  
-```source lending-library-env```  
+```source lending-library-env/bin/activate```  
 Exit environment  
 ```deactivate```  
 Help Menu  
 ```python3 -h venv```  
+
+## Setup
+```
+source config-dev.sh
+pip install -e .
+```
+
+## Run
+```python run.py```

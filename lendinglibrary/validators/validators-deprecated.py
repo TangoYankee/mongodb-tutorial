@@ -6,7 +6,7 @@ from pymongo import MongoClient, ReturnDocument
 from bson import ObjectId
 
 CLIENT = MongoClient('localhost', 27017)
-DB = CLIENT.mongodb_tutorial
+DB = CLIENT.lending_library
 
 class User:
     """Handle calls for users collection"""
