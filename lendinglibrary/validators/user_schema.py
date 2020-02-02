@@ -34,12 +34,13 @@ class UserSchema:
 
     def post(self, _json):
         self._json = _json
-        if self.is_valid:
+        try:
+            self.is_valid
             self.userDB.insert_one(self.json_data)
             resp = jsonify('user added')
             resp.status_code = 201
             return resp
-        else:
+        except:
             resp = jsonify('missing required field')
             resp.status_code = 400
             return resp
@@ -59,13 +60,15 @@ class UserSchema:
     def json_data(self):
         """Translate HTTP Request to JSON
             TODO: Replace with requests"""
-        _hashed_password = generate_password_hash(self._json['pwd'])
-        return {
-            "username": self._json['username'],
-            "email":    self._json['email'],
-            "pwd":      _hashed_password,
-            "books": []
-            }
+        data = {}
+        _username, _email, _pwd = self._json['username'], self._json['email'], self._json['pwd']
+        if _username and _email and _pwd:
+            _hashed_password = generate_password_hash(self._json['pwd'])
+            data['username'] = self._json['username']
+            data['email'] = self._json['email']
+            data['pwd'] = _hashed_password
+            data['books'] = []
+        return data
 
     @property
     def is_valid(self):
