@@ -3,6 +3,7 @@
 ```pip install -r requirements.txt```
 ### Flask
 The Python web microframework: [Flask Documentation](https://flask.palletsprojects.com/en/1.1.x/)
+```flask run```
 
 ### MongoDB
 NoSQL Database: [Install for Ubuntu](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
