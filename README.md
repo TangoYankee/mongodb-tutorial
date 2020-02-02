@@ -1,8 +1,7 @@
 # lending-library
-Demonstrate a [RESTFul](https://restfulapi.net/) API created with Flask and MongoDB to manage Library Materials
+Demonstrate a [RESTFul](https://restfulapi.net/) API created with Flask and MongoDB to manage materials for a library.
 
 ## restfulapi.net
-Overview of what constitutes a RESTFul API.  
 REST is an acronym for **RE**presentational **S**tate **T**ranser.
 
 ### Six Guiding Principles/Constraints of REST
