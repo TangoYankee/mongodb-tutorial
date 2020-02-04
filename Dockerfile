@@ -1,17 +1,16 @@
 FROM python:3.6
 
-
 WORKDIR /app
 
-COPY setup.py /app
-COPY flask-env.sh /app
+ADD setup.py /app
+ADD flask-env.sh /app
+ADD run.py /app
 
 COPY . /app
 
+RUN ["chmod", "+x", "/app/flask-env.sh"]
+RUN /app/flask-env.sh
 RUN pip install -e .
-RUN source flask-env.sh
 
-ADD run.py /app
-
-EXPOSE 5000
-CMD ["python3", "run.py"]
+EXPOSE 80
+ENTRYPOINT ["python3", "run.py"]

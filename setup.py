@@ -8,5 +8,6 @@ setup(
     'flask',
     'Flask-PyMongo',
     'dnspython',
+    'schema'
   ],
 )
