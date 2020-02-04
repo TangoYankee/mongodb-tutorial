@@ -1,11 +1,17 @@
-FROM python:3.6.9
+FROM python:3.6
 
-ADD setup.py /usr/src/app
-ADD run.py /usr/src/app
-WORKDIR /usr/src/app
 
-EXPOSE 5000
+WORKDIR /app
+
+COPY setup.py /app
+COPY flask-env.sh /app
+
+COPY . /app
 
 RUN pip install -e .
+RUN source flask-env.sh
 
-CMD ["python3", "app.py"]
+ADD run.py /app
+
+EXPOSE 5000
+CMD ["python3", "run.py"]
