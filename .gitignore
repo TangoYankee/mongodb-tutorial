@@ -4,6 +4,9 @@
 # virtual environment
 lending-library-env
 
+# configuration
+config-dev.sh
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

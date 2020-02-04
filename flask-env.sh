@@ -1,2 +1,2 @@
-export FLASK_ENV=development
+#!/bin/sh
 export FLASK_APP=lendinglibrary

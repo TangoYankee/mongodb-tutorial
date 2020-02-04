@@ -7,5 +7,7 @@ setup(
   install_requires=[
     'flask',
     'Flask-PyMongo',
+    'dnspython',
+    'schema'
   ],
 )
