@@ -1,0 +1,12 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": { 
+      "Name": "tangoyankee/lending-library",
+      "Update": true
+  },
+  "Ports":[
+      {
+          "ContainerPort": 80
+      }
+  ]
+}
