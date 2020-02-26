@@ -5,9 +5,9 @@ setup(
   packages=['lendinglibrary'],
   include_package_data=True,
   install_requires=[
-    'flask',
-    'Flask-PyMongo',
-    'dnspython',
-    'schema'
+    'flask==1.1.1',
+    'Flask-PyMongo==2.3.0',
+    'dnspython==1.16.0',
+    'schema==0.7.1'
   ],
 )

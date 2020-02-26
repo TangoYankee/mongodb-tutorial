@@ -8,7 +8,7 @@ from schema import Schema, Optional
 from pymongo import MongoClient, ReturnDocument
 from bson.objectid import ObjectId
 from bson.json_util import dumps
-from werkzeug import generate_password_hash
+from werkzeug.security import generate_password_hash
 
 
 class UserSchema:
@@ -64,6 +64,7 @@ class UserSchema:
         _username, _email, _pwd = self._json['username'], self._json['email'], self._json['pwd']
         if _username and _email and _pwd:
             _hashed_password = generate_password_hash(self._json['pwd'])
+            _hashed_password = self._json['pwd']
             data['username'] = self._json['username']
             data['email'] = self._json['email']
             data['pwd'] = _hashed_password
