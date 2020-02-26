@@ -64,7 +64,6 @@ class UserSchema:
         _username, _email, _pwd = self._json['username'], self._json['email'], self._json['pwd']
         if _username and _email and _pwd:
             _hashed_password = generate_password_hash(self._json['pwd'])
-            _hashed_password = self._json['pwd']
             data['username'] = self._json['username']
             data['email'] = self._json['email']
             data['pwd'] = _hashed_password
