@@ -8,7 +8,7 @@ from schema import Schema, Optional
 from pymongo import MongoClient, ReturnDocument
 from bson.objectid import ObjectId
 from bson.json_util import dumps
-from werkzeug import generate_password_hash
+from werkzeug.security import generate_password_hash
 
 
 class UserSchema:
