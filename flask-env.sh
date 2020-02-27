@@ -1,2 +1,2 @@
 #!/bin/sh
-export FLASK_APP=lendinglibrary
+export FLASK_APP=api

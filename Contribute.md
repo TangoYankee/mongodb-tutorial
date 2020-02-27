@@ -17,13 +17,10 @@ https://flask-pymongo.readthedocs.io/en/latest/
 
 
 ## Virtual Environment
-Install in bash  
-```sudo apt-get update```  
-```sudo apt-get install python3-venv```  
 Create environment  
-```python3 -m venv lending-library-env```  
+```python3 -m venv api-env```  
 Enter environment  
-```source lending-library-env/bin/activate```  
+```source api-env/bin/activate```  
 Exit environment  
 ```deactivate```  
 Help Menu  

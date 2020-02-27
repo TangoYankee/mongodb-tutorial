@@ -1,5 +1,5 @@
-from lendinglibrary import app
-from lendinglibrary.views.user_views import UserAPI
+from api import app
+from api.views.user_views import UserAPI
 
 
 def register_api(view, endpoint, url, pk='id', pk_type='string'):

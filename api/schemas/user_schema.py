@@ -1,7 +1,7 @@
 """
 Handle the requests to the Mongo Database
 """
-from lendinglibrary.database import mongo
+from api.database import mongo
 
 from flask import jsonify
 from schema import Schema, Optional

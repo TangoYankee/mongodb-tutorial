@@ -1,5 +1,5 @@
 from os import getenv
-from lendinglibrary import app
+from api import app
 from flask_pymongo import PyMongo
 
 # app.config["MONGO_DBMAME"] = 'lendingLibraryDB'
