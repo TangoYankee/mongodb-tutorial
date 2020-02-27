@@ -8,6 +8,8 @@ const Welcome = (props) => {
 
 }
 
+// https://reactjs.org/docs/state-and-lifecycle.html
+
 // const Avatar = (props) => {
 //   return (
 //     <img className="Avatar"
