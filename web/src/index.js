@@ -4,55 +4,22 @@ import './index.css'
 
 
 const Welcome = (props) => {
-  return <h1>Hello, {props.name}</h1>
+  return <h2 className="usa-heading heading-margin-alt">Hello, {props.name}</h2>
 
 }
 
 // https://reactjs.org/docs/state-and-lifecycle.html
 
-// const Avatar = (props) => {
-//   return (
-//     <img className="Avatar"
-//     src = {props.user.avatarUrl}
-//     alt = {props.user.name}
-//     />
-//   )
-// }
-
-// const Comment = (props) => {
-//   return (
-//     <div className="Comment">
-//       <div className="UserInfo">
-//         <Avatar user={props.author} />
-//         <div className="UserInfo-name">
-//           {props.author.name}
-//         </div>
-//       </div>
-//       <div className="Comment-text">
-//         {props.text}
-//       </div>
-//       <div>
-//         {props.date}
-//       </div>
-//     </div>
-//   )
-// }
-
 const Comment = (props) => {
-  return (
-    <div>
-
-<p>{props.text}</p>
-    </div>
-  )
+  return <p className="site-text-intro">{props.text}</p>
 }
 
 const App = () => {
   return (
-    <div>
+    <div className="usa-prose site-prose">
+      <h6 className="usa-heading-alt">Spacing</h6>
+      <h1>Page heading</h1>
       <Welcome name="Sara"/>
-      <Welcome name="Cahal"/>
-      <Welcome name="Edite"/>
       <Comment text="What a strange world"/>
     </div>
   )
