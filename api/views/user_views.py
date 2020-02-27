@@ -1,5 +1,5 @@
-from lendinglibrary import app
-from lendinglibrary.schemas.user_schema import UserSchema
+from api import app
+from api.schemas.user_schema import UserSchema
 
 from flask import request
 from flask.views import MethodView
