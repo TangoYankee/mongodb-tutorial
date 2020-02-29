@@ -1,6 +1,7 @@
 from api import app
 
 from flask import jsonify, request
+from auth.jwt_config import jwt
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 # @app.route('/token/auth/', methods=['GET', 'POST'])
