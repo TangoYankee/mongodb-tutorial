@@ -1,6 +1,7 @@
 div.context {
   text-align: center;
   border-style: solid;
+  border-width: 0.25rem;
   min-width: 12rem;
   flex: 1;
 }

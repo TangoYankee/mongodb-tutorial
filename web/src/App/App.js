@@ -6,10 +6,12 @@ import Header from '../Header/Header'
 
 const App = () => {
   return (
-    <div className="home">
+    <div>
       <Header />
+    <div className="home">      
       <Brand />
       <Context />
+    </div>
     </div>
   )
 }

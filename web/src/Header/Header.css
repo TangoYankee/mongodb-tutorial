@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  width:100%;
+  border-style: solid;
+  border-width: 0.25rem;
+  border-color: black;
+  color: black;
+}
+
+.header button {
+  border-style: none;
+  background-color: black;
+  color: white;
+}
+
+.header button:hover {
+  background-color: grey;
+}
+
+.header button:click {
+  background-color: orange;
+}

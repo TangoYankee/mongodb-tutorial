@@ -1,14 +1,18 @@
 import React from 'react'
 import './Header.css'
 
+const HeaderButton = (props) => {
+  return(
+  <button>{props.destination}</button>
+  )
+}
+
 const Header = () => {
   return(
     <div className="header">
-      <ul>
-        <li>Books</li>
-        <li>Not Books</li>
-        <li>Profile</li>
-      </ul>
+        <HeaderButton destination='Home'/>
+        <HeaderButton destination='Books'/>
+        <HeaderButton destination='Profile'/>
     </div>
   )
 }
