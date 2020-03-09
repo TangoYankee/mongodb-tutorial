@@ -1,3 +1,9 @@
 div.brand{
   text-align: center;
+  min-width: 25rem;
+  border-style: solid;
+  border-color: black;
+  color: white;
+  background-color: #112e51;
+  flex: 5
 }
