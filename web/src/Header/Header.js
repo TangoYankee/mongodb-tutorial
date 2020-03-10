@@ -10,11 +10,11 @@ const HeaderButton = (props) => {
 const Header = () => {
   const destinations = ['Home', 'Books', 'Sign In', 'Create Account']
   return(
-    <div className="header">
+    <nav className="header">
         {destinations.map(
           (destination) => <HeaderButton destination={destination}/>
         )}
-    </div>
+    </nav>
   )
 }
 

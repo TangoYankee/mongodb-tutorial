@@ -24,13 +24,21 @@ class LoginForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>
+        <label htmlFor='loginEmail'>
           Email:
-          <input name='email' type="email" value={this.state.email} onChange={this.handleInputChange} />
+          <input id='loginEmail'
+            name='email'
+            type="email"
+            value={this.state.email}
+            onChange={this.handleInputChange} />
         </label>
-        <label>
+        <label htmlFor='loginPassword'>
           Password:
-          <input name='password' type="password" value={this.state.password} onChange={this.handleInputChange}/>
+          <input id='loginPassword'
+          name='password'
+            type="password"
+            value={this.state.password}
+            onChange={this.handleInputChange} />
         </label>
         <button type="submit">
           Submit
