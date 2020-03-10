@@ -8,9 +8,16 @@ class LoginForm extends React.Component {
       email: '',
       password: ''
     }
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleInputChange(event) {
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   handleSubmit(event) {
+    alert(`attempt to login by: ${this.state.email}`)
     event.preventDefault()
   }
 
@@ -19,16 +26,15 @@ class LoginForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           Email:
-          <input type="email" value={this.state.email} onChange={
-            (event, newValue) => this.setState({ email: newValue })
-          } />
+          <input name='email' type="email" value={this.state.email} onChange={this.handleInputChange} />
         </label>
         <label>
           Password:
-          <input type="password" value={this.state.password} onChange={
-            (event, newValue) => this.setState({password: newValue})
-          } />
+          <input name='password' type="password" value={this.state.password} onChange={this.handleInputChange}/>
         </label>
+        <button type="submit">
+          Submit
+        </button>
       </form>
     )
   }

@@ -3,7 +3,7 @@ import './Context.css'
 
 class Context extends React.Component {
   state = {
-    display: 'context'
+    display: 'mission'
   }
   render() {
     return (
@@ -16,7 +16,6 @@ class Context extends React.Component {
       </div>
     )
   }
-
 }
 
 const Mission = () => {
