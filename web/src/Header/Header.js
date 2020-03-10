@@ -8,13 +8,13 @@ const HeaderButton = (props) => {
 }
 
 const Header = () => {
+  const destinations = ['Home', 'Books', 'Sign In', 'Create Account']
   return(
-    <div className="header">
-        <HeaderButton destination='Home'/>
-        <HeaderButton destination='Books'/>
-        <HeaderButton destination='Sign In'/>
-        <HeaderButton destination='Create Account'/>
-    </div>
+    <nav className="header">
+        {destinations.map(
+          (destination) => <HeaderButton destination={destination}/>
+        )}
+    </nav>
   )
 }
 
