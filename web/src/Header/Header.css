@@ -1,23 +1,28 @@
 .header {
   display: flex;
   flex-direction: row;
-  width:100%;
-  border-style: solid;
-  border-width: 0.25rem;
-  border-color: black;
-  color: black;
+  text-align: center;
+  min-width:17rem;
+  /* border-style: solid; */
+  /* border-width: 0.25rem; */
+  /* border-color: black; */
+  background-color: black;
+  /* color: black; */
 }
 
 .header button {
   border-style: none;
   background-color: black;
   color: white;
+  padding: 0.75rem;
 }
 
 .header button:hover {
   background-color: grey;
 }
 
-.header button:click {
+.header button:focus {
+  outline: none;
+  border-style: none;
   background-color: orange;
 }

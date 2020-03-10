@@ -12,7 +12,8 @@ const Header = () => {
     <div className="header">
         <HeaderButton destination='Home'/>
         <HeaderButton destination='Books'/>
-        <HeaderButton destination='Profile'/>
+        <HeaderButton destination='Sign In'/>
+        <HeaderButton destination='Create Account'/>
     </div>
   )
 }

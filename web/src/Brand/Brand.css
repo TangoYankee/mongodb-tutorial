@@ -1,6 +1,7 @@
 div.brand{
   text-align: center;
-  min-width: 25rem;
+  min-width: 17rem;
+  max-width: 100%;
   border-style: solid;
   border-color: black;
   border-width: 0.25rem;
