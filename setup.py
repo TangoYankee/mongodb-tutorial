@@ -8,6 +8,7 @@ setup(
     'flask==1.1.1',
     'Flask-PyMongo==2.3.0',
     'dnspython==1.16.0',
-    'schema==0.7.1'
+    'schema==0.7.1',
+    'Flask-JWT-Extended==3.24.1'
   ],
 )
