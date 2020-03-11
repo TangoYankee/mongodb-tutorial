@@ -10,36 +10,35 @@ import { BrowserRouter, Route } from 'react-router-dom'
 
 const routes = [
   {
-  path: "/",
-  exact: true,
-  main: () => <Brand />
-}, {
-  path: "/login",
-  exact: true,
-  main: () => <Login />
-}
+    path: "/",
+    exact: true,
+    main: () => <Brand />
+  }, {
+    path: "/login",
+    exact: true,
+    main: () => <Login />
+  }
 ]
 
 const App = () => {
   return (
-    <div>
+    <div class="site">
       <Header />
-{/*       
-      <main className="home">
+      <div className="content">
         <Brand />
         <Context />
-      </main>
-      <Login /> */}
+      </div>
+        <Login />
     </div>
   )
 }
 
 
-render(
-  <Router>
-    <Route exact path="/" component={Brand} />
-  </Router>
-)
+// render(
+//   <Router>
+//     <Route exact path="/" component={Brand} />
+//   </Router>
+// )
 
 
 
