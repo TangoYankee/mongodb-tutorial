@@ -1,9 +1,13 @@
 import React from 'react'
 import './Header.css'
+import {Link} from 'react-router-dom'
 
 const HeaderButton = (props) => {
   return(
-  <button>{props.destination}</button>
+  <button>
+    {props.destination}
+    <Link to="/"></Link>
+    </button>
   )
 }
 
