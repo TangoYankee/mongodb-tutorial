@@ -7,18 +7,16 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="site">
-        <Header />
-        <div className="content">
-          <Switch>
-            {routes.map((route, index) => (
-              <Route key={index} exact={route.exact} path={route.path}>
-                {<route.main />}
-                {<route.context />}
-              </Route>
-            ))}
-          </Switch>
-        </div>
+      <Header />
+      <div className="content">
+        <Switch>
+          {routes.map((route, index) => (
+            <Route key={index} exact={route.exact} path={route.path}>
+              {<route.main />}
+              {<route.context />}
+            </Route>
+          ))}
+        </Switch>
       </div>
     </BrowserRouter>
   )
