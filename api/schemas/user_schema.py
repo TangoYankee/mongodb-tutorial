@@ -14,6 +14,7 @@ from werkzeug.security import generate_password_hash
 class UserSchema:
     """Handle calls for users collection"""
     user_collection = mongo.db.user
+
     def __init__(self):
         """username and schema are standard to every instance"""
         self.user_schema = Schema({
@@ -21,7 +22,7 @@ class UserSchema:
             "email":            str,
             "pwd":              str,
             Optional("books"):  list
-            })
+        })
 
     def get(self, user_id):
         """Retrieve values for user from database"""
@@ -29,7 +30,7 @@ class UserSchema:
             users = self.user_collection.find()
             return dumps(users)
         else:
-            user = self.user_collection.find_one({'_id' : ObjectId(user_id)})
+            user = self.user_collection.find_one({'_id': ObjectId(user_id)})
             return dumps(user)
 
     def post(self, _json):
@@ -44,14 +45,14 @@ class UserSchema:
             resp = jsonify(f'missing {e} field')
             resp.status_code = 400
             return resp
-         
+
     def delete(self, user_id):
         if user_id is None:
             resp = jsonify('missing user id')
             resp.status_code = 400
             return resp
         else:
-            self.user_collection.delete_one({'_id' : ObjectId(user_id)})
+            self.user_collection.delete_one({'_id': ObjectId(user_id)})
             resp = jsonify('user deleted')
             resp.status_code = 200
             return resp
