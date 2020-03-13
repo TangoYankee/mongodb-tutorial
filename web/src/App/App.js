@@ -1,45 +1,25 @@
 import React from 'react'
 import './App.css'
-import Brand from '../Brand/Brand'
-import Context from '../Context/Context'
+import routes from '../Routes/Routes'
 import Header from '../Header/Header'
-import Login from '../Login/Login'
-import { render } from 'react-dom'
-import { BrowserRouter, Route } from 'react-router-dom'
-
-
-const routes = [
-  {
-    path: "/",
-    exact: true,
-    main: () => <Brand />
-  }, {
-    path: "/login",
-    exact: true,
-    main: () => <Login />
-  }
-]
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 const App = () => {
   return (
-    <div class="site">
+    <BrowserRouter>
       <Header />
       <div className="content">
-        <Brand />
-        <Context />
+        <Switch>
+          {routes.map((route, index) => (
+            <Route key={index} exact={route.exact} path={route.path}>
+              {<route.main />}
+              {<route.context />}
+            </Route>
+          ))}
+        </Switch>
       </div>
-        <Login />
-    </div>
+    </BrowserRouter>
   )
 }
-
-
-// render(
-//   <Router>
-//     <Route exact path="/" component={Brand} />
-//   </Router>
-// )
-
-
 
 export default App
