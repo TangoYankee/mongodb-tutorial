@@ -19,8 +19,16 @@ class Auth {
     }
   }
 
-  get _auth ()  {
+  async _auth ()  {
     return axios.get(`${this.baseUrl}/users/${this.email}`, this._payload)
+    .then(response => {  
+      console.log(response)
+      return response
+    })
+    .catch(error => {
+      console.log(error)
+      return(error)
+    })
   }
 }
 
@@ -42,15 +50,8 @@ class LoginForm extends React.Component {
   async handleSubmit (event) {
     event.preventDefault()    
     var auth = new Auth(this.state.email, this.state.password)
-    var response = auth._auth
-    
-    response
-    .then(response => {  
-      alert(`login by: ${response.data.username}`)
-    })
-    .catch(error => {
-      console.log(error)
-    })
+    var response = await auth._auth()
+    alert(`login by: ${response.data.username}`) 
   }
 
   render() {
