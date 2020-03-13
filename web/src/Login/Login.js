@@ -1,5 +1,28 @@
 import React from 'react'
+import axios from 'axios'
 import './Login.css'
+
+// Test User ID = 5e373f0db04a5d80b7025168
+
+
+class Auth {
+  constructor(email, password) {
+    this.baseUrl = 'http://localhost:8080/api/v1'
+    this.email = email
+    this.password = password
+  }
+
+  get _payload() {
+    return {
+      "email": this.email,
+      "password": this.password
+    }
+  }
+
+  get _auth ()  {
+    return axios.get(`${this.baseUrl}/users/${this.email}`, this._payload)
+  }
+}
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -16,37 +39,47 @@ class LoginForm extends React.Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  handleSubmit(event) {
-    alert(`attempt to login by: ${this.state.email}`)
-    event.preventDefault()
+  async handleSubmit (event) {
+    event.preventDefault()    
+    var auth = new Auth(this.state.email, this.state.password)
+    var response = auth._auth
+    
+    response
+    .then(response => {  
+      alert(`login by: ${response.data.username}`)
+    })
+    .catch(error => {
+      console.log(error)
+    })
   }
 
   render() {
     return (
       <div className="loginForm">
-      <form onSubmit={this.handleSubmit} >
-        <div className="loginText">
-          <label htmlFor='loginEmail'>
-            Email:
+        <form onSubmit={this.handleSubmit} >
+          <div className="loginText">
+            <label htmlFor='loginEmail'>
+              Email:
           <input id='loginEmail'
-              name='email'
-              type="email"
-              value={this.state.email}
-              onChange={this.handleInputChange} />
-          </label>
-          <label htmlFor='loginPassword'>
-            Password:
+                name='email'
+                // type='email'
+                type="text"
+                value={this.state.email}
+                onChange={this.handleInputChange} />
+            </label>
+            <label htmlFor='loginPassword'>
+              Password:
           <input id='loginPassword'
-              name='password'
-              type="password"
-              value={this.state.password}
-              onChange={this.handleInputChange} />
-          </label>
-          <button type="submit">
-            Submit
+                name='password'
+                type="password"
+                value={this.state.password}
+                onChange={this.handleInputChange} />
+            </label>
+            <button type="submit">
+              Submit
         </button>
-        </div>
-      </form>
+          </div>
+        </form>
       </div>
     )
   }

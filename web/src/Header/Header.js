@@ -12,8 +12,7 @@ const Header = () => {
   const destinations = [
     { name: 'Home', link: '/' },
     { name: 'Books', link: '/books' },
-    { name: 'Login', link: '/login' },
-    { name: 'Sign up', link: '/signup' }
+    { name: 'My profile', link: '/users' }
   ]
   return (
     <nav className="header">

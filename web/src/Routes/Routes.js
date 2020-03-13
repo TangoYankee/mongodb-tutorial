@@ -10,7 +10,7 @@ const routes = [
     main: () => <Brand />,
     context: () => <Context />
   }, {
-    path: "/login",
+    path: "/users",
     exact: true,
     main: () => <Login />,
     context: () => <Context />
