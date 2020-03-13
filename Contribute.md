@@ -30,7 +30,18 @@ Help Menu
 ```
 source config-dev.sh
 pip install -e .
+```  
+development only dependencies
 ```
+pip install -e .[dev]
+```
+
+
+## Linting
+Get report from pycodestyle (formerly pep8)
+```pycodestyle --first *.py```
+Automatically change
+```autopep8 --in-place *.py```
 
 ## Run
 ```python run.py```
