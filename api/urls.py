@@ -1,6 +1,6 @@
 from api import app
-from api.views.user_views import UserAPI
-from api.views.token_views import TokenService
+from api.users.views import UserAPI
+from api.tokens.views import TokenService
 from flask import request
 
 
