@@ -15,7 +15,8 @@ setup(
     extras_require={
         'dev': [
             'pytest',
-            'autopep8'
+            'autopep8',
+            'mockupdb'
         ]
     }
 )
